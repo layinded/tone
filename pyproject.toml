@@ -1,0 +1,143 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "toneformat"
+version = "1.0.0"
+description = "TONE – Token-Optimized Notation Engine for LLMs"
+readme = "README.md"
+license = "MIT"
+authors = [
+    {name = "Abdulbasit Ayinde", email = "ayindealiyu1@gmail.com"}
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Text Processing :: Markup",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Utilities",
+]
+requires-python = ">=3.8"
+dependencies = []
+keywords = ["tone", "json", "llm", "token", "serialization", "data-format", "ai", "parser"]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "pytest-asyncio>=0.21.0",
+    "black>=23.0.0",
+    "ruff>=0.1.0",
+    "mypy>=1.0.0",
+    "types-setuptools",
+]
+cli = [
+    "click>=8.0.0",
+    "rich>=13.0.0",
+]
+fastapi = [
+    "fastapi>=0.104.0",
+]
+pydantic = [
+    "pydantic>=2.0.0",
+]
+pandas = [
+    "pandas>=2.0.0",
+]
+all = [
+    "click>=8.0.0",
+    "rich>=13.0.0",
+    "fastapi>=0.104.0",
+    "pydantic>=2.0.0",
+    "pandas>=2.0.0",
+    "pyyaml>=6.0",
+    "tiktoken>=0.5.0",
+]
+
+[project.scripts]
+tone = "tone.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["tone*"]
+exclude = ["tests*"]
+
+[tool.black]
+line-length = 100
+target-version = ['py38']
+exclude = '''
+/(
+    \.git
+  | \.venv
+  | build
+  | dist
+)/
+'''
+
+[tool.ruff]
+line-length = 100
+target-version = "py38"
+exclude = [
+    ".git",
+    "__pycache__",
+    "build",
+    "dist",
+    ".venv",
+]
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort
+    "N",   # pep8-naming
+    "UP",  # pyupgrade
+]
+ignore = [
+    "E501",  # line too long (handled by black)
+]
+
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+warn_unreachable = true
+disallow_untyped_defs = false
+disallow_incomplete_defs = false
+check_untyped_defs = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+
+[[tool.mypy.overrides]]
+module = "tests.*"
+disallow_untyped_defs = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+python_classes = "Test*"
+python_functions = "test_*"
+addopts = [
+    "--cov=tone",
+    "--cov-report=term-missing",
+    "--cov-report=html",
+    "--strict-markers",
+]
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests as integration tests",
+    "compliance: marks tests as SPEC compliance tests",
+    "asyncio: marks tests as async tests",
+]
+
