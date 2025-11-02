@@ -9,7 +9,7 @@
 It encodes JSON-compatible structures using far fewer tokens typically **40-60% less**  
 making it ideal for AI assistants, RAG systems, and conversational data pipelines.
 
-> **Status**: ✅ Production-ready - Full implementation complete  
+> **Status**: ✅ Production-ready
 > **Reference**: [TypeScript Implementation](https://github.com/johannschopplich/toon) (inspiration)
 
 ## Why TONE?
